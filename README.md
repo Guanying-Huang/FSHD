@@ -13,7 +13,7 @@ The supplementary figures and tables associated with the paper are provided sepa
 
 ## 1. Spatial Knowledge Graph Construction
 
-This module contains the source code for constructing a hierarchical Spatial Knowledge Graph from as-built BIM data in IFC format. To enhance code readability and execution efficiency, the entire extraction and construction pipeline has been consolidated into a single comprehensive script (e.g., `ifc2kg_pipeline.py`) located in the root directory of this repository.
+This module contains the source code for constructing a hierarchical Spatial Knowledge Graph from as-built BIM data in IFC format. To enhance code readability and execution efficiency, the entire extraction and construction pipeline has been consolidated into a single comprehensive script (`ifc2kg_pipeline.py`) located in the root directory of this repository.
 
 ### Semantic Schema and Topology
 The graph extends fundamental IFC entity mappings by introducing a global context and external environment anchor, enabling the multi-agent system (MAS) to effectively reason about holistic project connectivity.
@@ -70,7 +70,7 @@ This module details the implementation logic of the retrieval tools and their ap
 ### Technical Architecture and Security Properties
 * **Driver Support**: Uses the official `neo4j` Python driver.
 * **Connection Mode**: Employs a retrieval class encapsulation supporting database connection pool reuse to optimize concurrent retrieval performance.
-* **Data Security**: All Cypher statements utilize parameterization for entity properties. For structural variables that Neo4j does not natively support for parameterization, the system implements a strict whitelist validation mechanism in the Python execution layer prior to any f-string interpolation. Specifically, the `relation_type` parameter in the `get_connected_elements` function is strictly validated against an allowed list of semantic relationships. This dual approach effectively defends against injection risks.
+* **Data Security**: All Cypher statements utilize parameterization for entity properties. For structural variables that Neo4j does not natively support for parameterization, the system implements a strict whitelist validation mechanism in the Python execution layer prior to any f-string interpolation. Specifically, the `relation_type` parameter in the `get_connected_elements` function is strictly validated against an allowed list of semantic relationships. This approach helps mitigate potential injection risks.
 
 ## 4. Multi-Agent System Prompts
 
@@ -79,11 +79,12 @@ This file (`prompts_mas_agents.md` located in the root directory) contains the d
 To strictly align with the dual-track cognitive architecture detailed in the manuscript, the prompt scripts define the following specific reasoning workflows:
 * **Task Planner**: Executes a Decomposed CoT workflow for intent parsing and global task routing.
 * **BIM Navigator**: Utilizes a ReAct Engine loop to autonomously invoke graph retrieval tools and extract verified spatial evidence.
-* **Regulation Expert**: Employs a ReAct Engine loop to perform semantic vector searches and retrieve gold-standard compliance evidence.
-* **Decision Maker**: Executes a Synthesis CoT workflow to cross-compare multi-source payloads and generate deterministic decision reports.
+* **Regulation Expert**: Employs a ReAct Engine loop to perform semantic vector searches and retrieve relevant compliance evidence.
+* **Decision Maker**: Executes a Synthesis CoT workflow to cross-compare multi-source payloads and generate evidence-based decision reports.
 
 ## Usage Instructions
 
 Install the required Python packages:
 ```bash
-pip install ifcopenshell pandas networkx pyvis neo4j
+python3 -m pip install ifcopenshell pandas networkx pyvis neo4j
+```
